@@ -1,0 +1,295 @@
+/* ==================================== */
+/* 🔹 Base Sidebar Styling */
+/* ==================================== */
+.sidebar {
+  background: rgba(25, 28, 36, 0.85); /* transparent dark background */
+  backdrop-filter: blur(10px); /* adds a glassy effect */
+  color: #f8f9fa; /* light text for visibility */
+  transform: translateX(-100%);
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease-in-out, background 0.3s ease;
+}
+
+/* Sidebar open state */
+.sidebar.sidebar-open {
+  transform: translateX(0);
+}
+
+/* ==================================== */
+/* 🔹 Text and Colors */
+/* ==================================== */
+.sidebar-logo h2,
+.role-info p,
+.nav-link,
+.user-name,
+.user-role {
+  color: #f8f9fa !important;
+}
+
+/* Active and hover link effects */
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  transform: translateX(8px);
+}
+
+.nav-link.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ==================================== */
+/* 🔹 Sidebar Toggle Button */
+/* ==================================== */
+.sidebar-toggle-btn {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1100;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: none;
+  transition: all 0.3s ease;
+}
+
+.sidebar-toggle-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+
+.sidebar-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.3rem;
+  z-index: 1200;
+  transition: all 0.3s ease;
+}
+
+.sidebar-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-icon {
+  font-size: 2rem;
+  color: var(--primary, #60a5fa);
+}
+
+.sidebar-logo h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+}
+
+/* ==================================== */
+/* 🔹 Role Info */
+/* ==================================== */
+.role-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.role-icon {
+  font-size: 1.1rem;
+  color: var(--primary, #60a5fa);
+}
+
+.role-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+/* ==================================== */
+/* 🔹 Navigation Links */
+/* ==================================== */
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 0;
+  overflow-y: auto;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-nav li {
+  margin-bottom: 4px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px;
+  color: #e2e8f0;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  transform: translateX(5px);
+}
+
+.nav-link.active {
+  background: var(--primary, #2563eb);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.nav-icon {
+  font-size: 1.2rem;
+  color: #93c5fd;
+  transition: color 0.3s;
+}
+
+.nav-link:hover .nav-icon,
+.nav-link.active .nav-icon {
+  color: #fff;
+}
+
+/* ==================================== */
+/* 🔹 Sidebar Footer */
+/* ==================================== */
+.sidebar-footer {
+  padding: 15px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary-light, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: white;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #f1f5f9;
+}
+
+.user-role {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  text-transform: capitalize;
+}
+
+/* ==================================== */
+/* 🔹 Scrollbar Styling */
+/* ==================================== */
+.sidebar-nav::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+
+/* ==================================== */
+/* 🔹 Responsive Design */
+/* ==================================== */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100%;
+    z-index: 1000;
+  }
+
+  .sidebar-toggle-btn {
+    display: block;
+  }
+
+  .sidebar-close-btn {
+    display: block;
+  }
+
+  body.sidebar-open {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 210px;
+  }
+
+  .sidebar-toggle-btn {
+    top: 10px;
+    left: 10px;
+    padding: 8px 10px;
+  }
+
+  .nav-link {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .nav-icon {
+    font-size: 1.1rem;
+  }
+}
+
+/* ==================================== */
+/* 🔹 Animation */
+/* ==================================== */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

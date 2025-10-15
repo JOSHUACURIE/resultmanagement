@@ -1,0 +1,164 @@
+.input-group {
+  margin-bottom: var(--space-lg, 1.25rem);
+  width: 100%;
+  max-width: 100%;
+}
+
+.input-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text, #111827);
+  margin-bottom: var(--space-xs, 0.25rem);
+  word-wrap: break-word;
+}
+
+.input-required {
+  color: var(--error, #dc2626);
+  margin-left: 4px;
+}
+
+/* Input field wrapper */
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Input field base */
+.input-field {
+  width: 100%;
+  padding: var(--space-sm, 0.625rem) var(--space-md, 1rem);
+  font-size: 1rem;
+  border: 1px solid var(--border, #d1d5db);
+  border-radius: var(--radius, 8px);
+  background-color: var(--surface, #ffffff);
+  color: var(--text, #111827);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Focus state */
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Placeholder text */
+.input-field::placeholder {
+  color: #9ca3af;
+}
+
+/* Icon spacing */
+.input-field--with-start {
+  padding-left: 2.5rem;
+}
+
+.input-field--with-end {
+  padding-right: 2.5rem;
+}
+
+/* Icons */
+.input-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary, #6b7280);
+  pointer-events: none;
+  font-size: 1.125rem;
+}
+
+.input-icon--start {
+  left: var(--space-md, 1rem);
+}
+
+.input-icon--end {
+  right: var(--space-md, 1rem);
+}
+
+/* Error styling */
+.input-group--error .input-field {
+  border-color: var(--error, #ef4444);
+}
+
+.input-group--error .input-field:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.input-error {
+  margin-top: var(--space-xs, 0.25rem);
+  font-size: 0.8125rem;
+  color: var(--error, #ef4444);
+  font-weight: 500;
+}
+
+/* Disabled input */
+.input-field:disabled {
+  background-color: #f9fafb;
+  color: var(--text-secondary, #9ca3af);
+  cursor: not-allowed;
+}
+
+/* ============================== */
+/* 🔹 Responsive Design Section   */
+/* ============================== */
+
+/* Tablet screens (≤992px) */
+@media (max-width: 992px) {
+  .input-label {
+    font-size: 0.875rem;
+  }
+  .input-field {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.9rem;
+  }
+}
+
+/* Mobile devices (≤768px) */
+@media (max-width: 768px) {
+  .input-group {
+    margin-bottom: 1rem;
+  }
+
+  .input-label {
+    font-size: 0.85rem;
+  }
+
+  .input-field {
+    font-size: 0.9rem;
+    padding: 0.55rem 0.85rem;
+    border-radius: 6px;
+  }
+
+  .input-icon {
+    font-size: 1rem;
+  }
+
+  .input-field--with-start {
+    padding-left: 2.2rem;
+  }
+
+  .input-field--with-end {
+    padding-right: 2.2rem;
+  }
+}
+
+/* Small mobile phones (≤480px) */
+@media (max-width: 480px) {
+  .input-group {
+    margin-bottom: 0.875rem;
+  }
+
+  .input-field {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .input-label {
+    font-size: 0.8rem;
+  }
+
+  .input-icon {
+    font-size: 0.9rem;
+  }
+}

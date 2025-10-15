@@ -1,0 +1,757 @@
+/* ManageSubjects.css - Mobile Responsive */
+
+.manage-subjects {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.add-subject-btn {
+  white-space: nowrap;
+}
+
+/* Subjects Table Container */
+.subjects-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Desktop Table */
+.desktop-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.desktop-table th {
+  background-color: #f8f9fa;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 2px solid #e5e7eb;
+  font-size: 14px;
+}
+
+.desktop-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+}
+
+.subject-row:hover {
+  background-color: #f9fafb;
+}
+
+.expanded-details-row {
+  background-color: #fafafa;
+}
+
+.expanded-details-row td {
+  border-bottom: 2px solid #e5e7eb;
+  padding: 0;
+}
+
+.subject-info-cell {
+  min-width: 200px;
+}
+
+.subject-main-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.subject-title {
+  font-weight: 600;
+  color: #111827;
+  font-size: 16px;
+}
+
+.subject-code {
+  font-size: 14px;
+  color: #6b7280;
+  font-family: monospace;
+  background: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.subject-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Mobile Subjects List */
+.mobile-subjects-list {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.subject-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Subject Card Header - Flex Layout */
+.subject-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.subject-card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.subject-card-name {
+  font-weight: 600;
+  color: #111827;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.subject-card-code {
+  font-size: 14px;
+  color: #6b7280;
+  font-family: monospace;
+  background: #f5f5f5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
+.subject-card-status {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Subject Card Details - Flex Layout */
+.subject-card-details {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.assignment-overview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 8px 0;
+}
+
+.assignment-count {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.teacher-names {
+  font-size: 14px;
+  color: #666;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subject-card-actions .action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Expanded Details */
+.subject-details-expanded {
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.subject-details-expanded-mobile {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.details-header h4 {
+  margin: 0;
+  color: #374151;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.assignments-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Assignment Overview Styles */
+.no-assignments-overview,
+.no-assignments {
+  color: #6b7280;
+  font-style: italic;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+/* Teacher Assignments */
+.teacher-assignment {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.teacher-info {
+  font-weight: 500;
+  color: #111827;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.assignment-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Assignment Badges */
+.assignment-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  white-space: nowrap;
+}
+
+.remove-assignment-btn {
+  background: transparent;
+  border: none;
+  color: #dc2626;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  margin-left: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.remove-assignment-btn:hover {
+  background: #fecaca;
+  color: #b91c1c;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.action-buttons .btn {
+  margin: 2px;
+  min-width: 80px;
+}
+
+/* Loading and Empty States */
+.loading-state {
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.empty-state {
+  padding: 40px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* Error Message */
+.error-message {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Form Styles */
+.subject-form,
+.assign-teacher-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.form-error {
+  color: #dc2626;
+  background-color: #fef2f2;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #fecaca;
+  font-size: 14px;
+}
+
+/* Subject Details Modal */
+.subject-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.detail-section {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.detail-section h3 {
+  margin: 0 0 16px 0;
+  color: #374151;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.stat-item {
+  background: #f8f9fa;
+  padding: 16px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.assignments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.text-muted {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .manage-subjects {
+    padding: 16px;
+  }
+  
+  .page-title {
+    font-size: 24px;
+  }
+  
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .manage-subjects {
+    padding: 12px;
+  }
+  
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .page-title {
+    font-size: 22px;
+    text-align: center;
+  }
+  
+  .add-subject-btn {
+    width: 100%;
+  }
+  
+  /* Hide desktop table, show mobile cards */
+  .desktop-table {
+    display: none;
+  }
+  
+  .mobile-subjects-list {
+    display: flex;
+  }
+  
+  /* Mobile Flex Layout Improvements */
+  .subject-card-header {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .subject-card-main {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .subject-card-name {
+    font-size: 16px;
+    word-wrap: break-word;
+  }
+  
+  .subject-card-code {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
+  
+  .subject-card-status {
+    flex-shrink: 0;
+    justify-content: flex-end;
+  }
+  
+  .assignment-overview {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .teacher-names {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .assignment-details {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+  
+  .assignment-badge {
+    width: 100%;
+    justify-content: space-between;
+    padding: 8px 12px;
+  }
+  
+  .teacher-assignment {
+    gap: 10px;
+  }
+  
+  .teacher-info {
+    font-size: 13px;
+    gap: 6px;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .form-actions .btn {
+    width: 100%;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+  }
+  
+  .modal-actions .btn {
+    width: 100%;
+  }
+  
+  .details-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .action-buttons .btn {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .manage-subjects {
+    padding: 8px;
+  }
+  
+  .page-title {
+    font-size: 20px;
+  }
+  
+  .subject-card {
+    padding: 12px;
+  }
+  
+  .detail-section {
+    padding: 16px;
+  }
+  
+  .action-buttons .btn {
+    min-width: auto;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+  
+  .subject-card-name {
+    font-size: 16px;
+  }
+  
+  .teacher-names {
+    font-size: 12px;
+    max-width: 100%;
+    white-space: normal;
+    overflow: visible;
+  }
+  
+  /* Enhanced Flex Layout for Small Screens */
+  .subject-card-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .subject-card-status {
+    justify-content: flex-start;
+  }
+  
+  .assignment-overview {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+  
+  .assignment-count {
+    align-self: flex-start;
+  }
+  
+  .teacher-names {
+    white-space: normal;
+    line-height: 1.4;
+  }
+}
+
+/* Additional Mobile Optimizations */
+@media (max-width: 360px) {
+  .subject-card {
+    padding: 10px;
+  }
+  
+  .subject-card-name {
+    font-size: 15px;
+  }
+  
+  .action-buttons .btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+  
+  .assignment-badge {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .page-header .btn,
+  .action-buttons,
+  .modal-actions {
+    display: none !important;
+  }
+  
+  .manage-subjects {
+    padding: 0;
+  }
+  
+  .subject-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+}
+
+/* Utility Classes for Flex */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-auto {
+  flex: auto;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.gap-3 {
+  gap: 12px;
+}
+
+.gap-4 {
+  gap: 16px;
+}
