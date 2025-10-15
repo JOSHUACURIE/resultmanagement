@@ -54,9 +54,7 @@
   background-color: var(--surface);
   color: var(--text);
   appearance: none;
-  background-image: url("image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3e%3cpath fill='%236B7280' d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
+  
   background-size: 16px 12px;
 }
 
