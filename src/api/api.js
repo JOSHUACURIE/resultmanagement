@@ -20,11 +20,10 @@ const getAPIBaseURL = () => {
   if (isLocalhost) {
     return 'http://localhost:5000/api';
   } else if (isVercel) {
-    // Replace with your actual Render backend URL
     return 'https://result-7.onrender.com/api';
   }
   
-  // Fallback - UPDATE THIS WITH YOUR ACTUAL RENDER URL
+  // Fallback
   return 'https://result-7.onrender.com/api';
 };
 
@@ -101,13 +100,12 @@ const api = async (endpoint, options = {}) => {
     method: options.method || 'GET',
     headers,
     signal: controller.signal,
-    credentials: 'include', // Important for CORS with credentials
+    credentials: 'include',
   };
 
   // Handle request body
   if (options.body && !['GET', 'HEAD'].includes(config.method)) {
     if (options.body instanceof FormData) {
-      // Remove Content-Type for FormData to let browser set it
       delete headers['Content-Type'];
       config.body = options.body;
     } else {
@@ -163,7 +161,6 @@ const api = async (endpoint, options = {}) => {
         console.error('🛑 Authentication failed (401), clearing auth data');
         clearAuthData();
         
-        // Only redirect if not already on login page
         if (!window.location.pathname.includes('/login')) {
           window.location.href = '/login?session=expired';
         }
@@ -230,30 +227,57 @@ export const authApi = {
     
     const response = await post('/users/login', credentials);
     
-    // Normalize response structure
-    const userData = response.user || response;
-    const token = response.token;
+    // ✅ FIXED: Handle nested response structure from backend
+    console.log('📨 Login API Response:', response);
+    
+    // Extract from nested data object (your backend returns: { success: true, data: { token, user } })
+    let userData, token;
+
+    if (response.success && response.data) {
+      // New format: nested in data object
+      userData = response.data.user;
+      token = response.data.token;
+    } else if (response.user && response.token) {
+      // Old format: flat structure
+      userData = response.user;
+      token = response.token;
+    } else {
+      // Direct format
+      userData = response;
+      token = response.token;
+    }
 
     if (!userData || !token) {
+      console.error('❌ Missing user data or token in response:', response);
       throw new Error('Invalid login response: missing user data or token');
     }
 
-    // Normalize roles to always be an array
-    if (userData.roles && !Array.isArray(userData.roles)) {
-      userData.roles = [userData.roles];
-    }
+    // Normalize user data structure
+    const normalizedUser = {
+      id: userData.user_id || userData.id,
+      user_id: userData.user_id,
+      fullname: userData.fullname,
+      email: userData.email,
+      role: userData.role,
+      roles: userData.roles ? 
+        (Array.isArray(userData.roles) ? userData.roles : [userData.roles]) : 
+        [userData.role || 'user'],
+      teacher: userData.teacher,
+      is_active: userData.is_active !== undefined ? userData.is_active : true
+    };
 
     // Store auth data
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('user', JSON.stringify(normalizedUser));
     localStorage.setItem('token', token);
 
     console.log('✅ Login successful:', { 
-      user: userData.email, 
-      roles: userData.roles,
+      user: normalizedUser.email, 
+      role: normalizedUser.role,
+      userId: normalizedUser.user_id,
       tokenLength: token.length 
     });
 
-    return { user: userData, token };
+    return { user: normalizedUser, token };
   },
 
   logout: () => {
@@ -278,14 +302,21 @@ export const authApi = {
         return { valid: false, reason: 'No token or user data' };
       }
 
-      // You might want to call a validation endpoint here
-      // const response = await get('/users/validate');
-      // return { valid: true, user: response.user };
-      
       return { valid: true, user };
     } catch (error) {
       return { valid: false, reason: error.message };
     }
+  },
+
+  register: async (userData) => {
+    console.log('👤 Attempting registration...', { email: userData.email });
+    const response = await post('/users/register', userData);
+    
+    // Handle nested response for registration too
+    if (response.success && response.data) {
+      return response.data;
+    }
+    return response;
   }
 };
 
@@ -298,15 +329,18 @@ export const teacherApi = {
   delete: (id) => del(`/teachers/${id}`),
   getSubjects: (id) => get(`/teachers/${id}/my-subjects`),
   resetPassword: (id) => put(`/teachers/${id}/reset-password`),
+  getClasses: (id) => get(`/teachers/${id}/classes`),
 };
 
 // === Subjects API ===
 export const subjectApi = {
   create: (subject) => post('/subjects', subject),
   getAll: () => get('/subjects'),
+  getById: (id) => get(`/subjects/${id}`),
   getStudents: (subjectId) => get(`/subjects/${subjectId}/students`),
   update: (id, subject) => put(`/subjects/${id}`, subject),
   delete: (id) => del(`/subjects/${id}`),
+  getTeachers: (subjectId) => get(`/subjects/${subjectId}/teachers`),
 };
 
 // === Students API ===
@@ -316,16 +350,103 @@ export const studentApi = {
   getById: (id) => get(`/students/${id}`),
   update: (id, student) => put(`/students/${id}`, student),
   delete: (id) => del(`/students/${id}`),
+  getSubjects: (id) => get(`/students/${id}/subjects`),
+  getResults: (id) => get(`/students/${id}/results`),
+  getAssignments: (id) => get(`/students/${id}/assignments`),
+};
+
+// === Classes API ===
+export const classApi = {
+  create: (classData) => post('/classes', classData),
+  getAll: () => get('/classes'),
+  getById: (id) => get(`/classes/${id}`),
+  update: (id, classData) => put(`/classes/${id}`, classData),
+  delete: (id) => del(`/classes/${id}`),
+  getStudents: (id) => get(`/classes/${id}/students`),
+  getSubjects: (id) => get(`/classes/${id}/subjects`),
+};
+
+// === Streams API ===
+export const streamApi = {
+  create: (stream) => post('/streams', stream),
+  getAll: () => get('/streams'),
+  getById: (id) => get(`/streams/${id}`),
+  update: (id, stream) => put(`/streams/${id}`, stream),
+  delete: (id) => del(`/streams/${id}`),
+};
+
+// === Scores API ===
+export const scoreApi = {
+  create: (score) => post('/scores', score),
+  getAll: () => get('/scores'),
+  getById: (id) => get(`/scores/${id}`),
+  update: (id, score) => put(`/scores/${id}`, score),
+  delete: (id) => del(`/scores/${id}`),
+  getStudentScores: (studentId) => get(`/scores/student/${studentId}`),
+  getSubjectScores: (subjectId) => get(`/scores/subject/${subjectId}`),
+};
+
+// === Comments API ===
+export const commentApi = {
+  create: (comment) => post('/comments', comment),
+  getAll: () => get('/comments'),
+  getById: (id) => get(`/comments/${id}`),
+  update: (id, comment) => put(`/comments/${id}`, comment),
+  delete: (id) => del(`/comments/${id}`),
+  getStudentComments: (studentId) => get(`/comments/student/${studentId}`),
+};
+
+// === Terms API ===
+export const termApi = {
+  create: (term) => post('/terms', term),
+  getAll: () => get('/terms'),
+  getById: (id) => get(`/terms/${id}`),
+  update: (id, term) => put(`/terms/${id}`, term),
+  delete: (id) => del(`/terms/${id}`),
+  getCurrent: () => get('/terms/current'),
+};
+
+// === Results API ===
+export const resultApi = {
+  generate: (data) => post('/results/generate', data),
+  getAll: () => get('/results'),
+  getById: (id) => get(`/results/${id}`),
+  getStudentResults: (studentId) => get(`/results/student/${studentId}`),
+  getClassResults: (classId) => get(`/results/class/${classId}`),
+  publish: (id) => put(`/results/${id}/publish`),
+  unpublish: (id) => put(`/results/${id}/unpublish`),
+};
+
+// === SMS API ===
+export const smsApi = {
+  send: (data) => post('/sms/send', data),
+  getTemplates: () => get('/sms/templates'),
+  createTemplate: (template) => post('/sms/templates', template),
+  getHistory: () => get('/sms/history'),
 };
 
 // === Assignments API ===
 export const assignmentApi = {
-  getAssignmentStudents: (assignmentId) => get(`/assignments/${assignmentId}/students`),
   create: (assignment) => post('/assignments', assignment),
   getAll: () => get('/assignments'),
   getById: (id) => get(`/assignments/${id}`),
   update: (id, assignment) => put(`/assignments/${id}`, assignment),
   delete: (id) => del(`/assignments/${id}`),
+  getAssignmentStudents: (assignmentId) => get(`/assignments/${assignmentId}/students`),
+  submitScore: (assignmentId, studentId, score) => 
+    post(`/assignments/${assignmentId}/students/${studentId}/score`, { score }),
+  getStudentAssignments: (studentId) => get(`/assignments/student/${studentId}`),
+  getTeacherAssignments: (teacherId) => get(`/assignments/teacher/${teacherId}`),
+};
+
+// === Users API ===
+export const userApi = {
+  getAll: () => get('/users'),
+  getById: (id) => get(`/users/${id}`),
+  update: (id, userData) => put(`/users/${id}`, userData),
+  delete: (id) => del(`/users/${id}`),
+  changePassword: (id, passwordData) => put(`/users/${id}/password`, passwordData),
+  resetPassword: (email) => post('/users/reset-password', { email }),
 };
 
 // Export API base URL for external use
