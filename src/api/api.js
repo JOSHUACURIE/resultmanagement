@@ -1,5 +1,5 @@
 // src/api/api.js
-const API_BASE_URL = 'https://result-6.onrender.com/api';
+const API_BASE_URL = 'https://result-6.onrender.com/';
 
 // === Helper: Get stored user ===
 const getStoredUser = () => {
