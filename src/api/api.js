@@ -21,11 +21,11 @@ const getAPIBaseURL = () => {
     return 'http://localhost:5000/api';
   } else if (isVercel) {
     // Replace with your actual Render backend URL
-    return 'https://your-backend-app.onrender.com/api';
+    return 'https://result-7.onrender.com/api';
   }
   
   // Fallback - UPDATE THIS WITH YOUR ACTUAL RENDER URL
-  return 'https://your-backend-app.onrender.com/api';
+  return 'https://result-7.onrender.com/api';
 };
 
 const API_BASE_URL = getAPIBaseURL();
