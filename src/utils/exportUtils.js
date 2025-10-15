@@ -70,17 +70,17 @@ export const getUniqueSubjects = (students) => {
 
 // ====== DEFAULT TEACHERS MAP ======
 const DEFAULT_TEACHERS = {
-  'BUSINESS STUDIES': 'JAOKO J.',
+  'BUSINESS STUDIES': 'OJWANG W.',
   'CRE': 'MILKA OYIER',
-  'PHYSICS': 'JAOKO J.',
-  'MATHEMATICS': 'JAOKO J.',
-  'CHEMISTRY': 'AMISI J.',
-  'HISTORY': 'ADERO GRACE',
-  'AGRICULTURE': 'AMISI J.',
-  'KISWAHILI': 'ADERO GRACE',
-  'ENGLISH': 'ORTONE OSIRE',
-  'BIOLOGY': 'AMISI J.',
-  'GEOGRAPHY': 'ODHIAMBO CALEB'
+  'PHYSICS': 'ODWAR J',
+  'MATHEMATICS': 'ODWAR J.',
+  'CHEMISTRY': 'KENNEDY O.',
+  'HISTORY': 'PAUL O',
+  'AGRICULTURE': 'BRIAN O.',
+  'KISWAHILI': 'OJWANG W',
+  'ENGLISH': 'BRIAN O',
+  'BIOLOGY': 'KENNEDY O.',
+  'GEOGRAPHY': 'ODHIAMBO C'
 };
 
 const getTeacherForSubject = (subjectName) => {
