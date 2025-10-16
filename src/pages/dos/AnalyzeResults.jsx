@@ -324,7 +324,7 @@ const AnalyzeResults = () => {
   // Get default principal comment based on performance
   const getDefaultPrincipalComment = (student) => {
     const totalMarks = Math.round(student.total_score || 0);
-    const percentage = (totalMarks / 1200) * 100;
+    const percentage = (totalMarks / 1100) * 100;
     
     if (percentage >= 80) return 'Exceptional performance! Maintain this outstanding achievement.';
     if (percentage >= 70) return 'Excellent work! Continue with the same dedication and focus.';
@@ -337,7 +337,7 @@ const AnalyzeResults = () => {
   // Get default class teacher comment based on performance
   const getDefaultClassTeacherComment = (student) => {
     const totalMarks = Math.round(student.total_score || 0);
-    const percentage = (totalMarks / 1200) * 100;
+    const percentage = (totalMarks / 1100) * 100;
     const grade = calculateTotalGrade(totalMarks);
     
     if (grade === 'A' || grade === 'A-') return 'Outstanding student with excellent academic discipline and consistent performance.';
@@ -385,7 +385,7 @@ const AnalyzeResults = () => {
   const calculateClassAverage = () => {
     if (results.length === 0) return '0.00';
     const total = results.reduce((sum, student) => sum + parseFloat(student.average_score || 0), 0);
-    return (total / results.length).toFixed(2);
+    return (total / results.length /12).toFixed(2);
   };
 
   // Grade variant for badges
