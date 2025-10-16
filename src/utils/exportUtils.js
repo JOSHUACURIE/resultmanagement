@@ -33,7 +33,7 @@ export const calculateGrade = (score) => {
   return 'E';
 };
 
-export const calculateTotalGrade = (totalScore, maxPossible = 1200) => {
+export const calculateTotalGrade = (totalScore, maxPossible = 1100) => {
   if (!totalScore && totalScore !== 0) return '-';
   const percentage = (totalScore / maxPossible) * 100;
   if (percentage >= 78) return 'A';
@@ -400,7 +400,7 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
     }
 
     const totalMarks = student.total_score || enrichedSubjects.reduce((sum, s) => sum + (parseFloat(s.score) || 0), 0);
-    const percentage = ((totalMarks / 1200) * 100).toFixed(1);
+    const percentage = ((totalMarks / 1100) * 100).toFixed(1);
 
     const doc = new Document({
       sections: [{
@@ -573,7 +573,7 @@ export const exportIndividualResultAsHTML = async (student, subjects = [], comme
   }));
 
   const totalMarks = student.total_score || enrichedSubjects.reduce((sum, s) => sum + (parseFloat(s.score) || 0), 0);
-  const percentage = ((totalMarks / 1200) * 100).toFixed(1);
+  const percentage = ((totalMarks / 1100) * 100).toFixed(1);
   const overallGrade = student.overall_grade || calculateTotalGrade(totalMarks);
   const gradeClass = overallGrade.startsWith('A') ? 'A' :
                      overallGrade.startsWith('B') ? 'B' :
