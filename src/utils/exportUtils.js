@@ -70,7 +70,7 @@ export const getUniqueSubjects = (students) => {
 
 // ====== DEFAULT TEACHERS MAP ======
 const DEFAULT_TEACHERS = {
-  'BUSINESS STUDIES': 'OJWANG W.',
+  'BUSINESS': 'OJWANG W.',
   'CRE': 'MILKA OYIER',
   'PHYSICS': 'ODWAR J',
   'MATHEMATICS': 'ODWAR J.',
