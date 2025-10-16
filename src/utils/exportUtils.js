@@ -141,7 +141,7 @@ const getSubjectAbbreviation = (subjectName) => {
     'GEOGRAPHY': 'GEO',
     'CRE': 'CRE',
     'AGRICULTURE': 'AGR',
-    'BUSINESS STUDIES': 'BST'
+    'BUSINESS': 'BST'
   };
   const upperSubject = subjectName.toUpperCase();
   return abbreviations[upperSubject] || subjectName.substring(0, 4).toUpperCase();
