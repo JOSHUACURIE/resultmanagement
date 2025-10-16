@@ -385,7 +385,7 @@ const AnalyzeResults = () => {
   const calculateClassAverage = () => {
     if (results.length === 0) return '0.00';
     const total = results.reduce((sum, student) => sum + parseFloat(student.average_score || 0), 0);
-    return (total / results.length /12).toFixed(2);
+    return (total / results.length ).toFixed(2);
   };
 
   // Grade variant for badges
