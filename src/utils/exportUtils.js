@@ -40,10 +40,10 @@ export const calculateTotalGrade = (totalScore, maxPossible = 1100) => {
   if (percentage >= 75) return 'A-';
   if (percentage >= 70) return 'B+';
   if (percentage >= 65) return 'B';
-  if (percentage >= 60) return 'B-';
-  if (percentage >= 55) return 'C+';
-  if (percentage >= 50) return 'C';
-  if (percentage >= 45) return 'C-';
+  if (percentage >= 55) return 'B-';
+  if (percentage >= 48) return 'C+';
+  if (percentage >= 40) return 'C';
+  if (percentage >= 35) return 'C-';
   if (percentage >= 30) return 'D+';
   if (percentage >= 25) return 'D';
   if (percentage >= 20) return 'D-';
