@@ -367,7 +367,7 @@ const AnalyzeResults = () => {
       'D+': 'Weak - Significant improvement needed',
       'D': 'Weak - Much improvement required',
       'D-': 'Weak - Serious attention needed',
-      'E': 'Poor - Immediate intervention required'
+      'E': 'Weak- Immediate intervention required'
     };
     return remarks[grade] || 'Performance assessment pending';
   };
