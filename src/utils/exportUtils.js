@@ -321,6 +321,7 @@ export const loadImageAsBase64 = async (imageUrl) => {
   }
 };
 // ====== WORD EXPORT HELPER FUNCTIONS ======
+// ====== WORD EXPORT HELPER FUNCTIONS ======
 
 const createInfoRow = (label, value) => {
   return new Paragraph({
@@ -332,17 +333,35 @@ const createInfoRow = (label, value) => {
   });
 };
 
+const getGradeColor = (grade) => {
+  const colors = {
+    'A': '2E8B57',   // Emerald Green
+    'A-': '2E8B57',
+    'B+': '28A79A',  // Teal
+    'B': '28A79A',
+    'B-': '28A79A',
+    'C+': 'FFA726',  // Amber
+    'C': 'FFA726',
+    'C-': 'FFA726',
+    'D+': 'EF5350',  // Soft Red
+    'D': 'EF5350',
+    'D-': 'EF5350',
+    'E': '990000'    // Dark Red
+  };
+  return colors[grade] || '000000';
+};
+
 const createSubjectTable = (subjects) => {
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
-    columnWidths: [2400, 900, 900, 1700, 1700], // Same column widths
+    columnWidths: [2400, 900, 900, 1700, 1700],
     rows: [
       new TableRow({
-        height: { value: 450, rule: HeightRule.ATLEAST }, // Slightly increased height for larger text
+        height: { value: 450, rule: HeightRule.ATLEAST },
         children: [
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "SUBJECT", bold: true, size: 21, color: "FFFFFF" })], // Changed to 21
+              children: [new TextRun({ text: "SUBJECT", bold: true, size: 21, color: "FFFFFF" })],
               alignment: AlignmentType.CENTER,
             })], 
             shading: { fill: "0A2E5C" },
@@ -350,7 +369,7 @@ const createSubjectTable = (subjects) => {
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "SCORE", bold: true, size: 21, color: "FFFFFF" })], // Changed to 21
+              children: [new TextRun({ text: "SCORE", bold: true, size: 21, color: "FFFFFF" })],
               alignment: AlignmentType.CENTER,
             })], 
             shading: { fill: "0A2E5C" },
@@ -358,7 +377,7 @@ const createSubjectTable = (subjects) => {
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "GRADE", bold: true, size: 21, color: "FFFFFF" })], // Changed to 21
+              children: [new TextRun({ text: "GRADE", bold: true, size: 21, color: "FFFFFF" })],
               alignment: AlignmentType.CENTER,
             })], 
             shading: { fill: "0A2E5C" },
@@ -366,7 +385,7 @@ const createSubjectTable = (subjects) => {
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "TEACHER", bold: true, size: 21, color: "FFFFFF" })], // Changed to 21
+              children: [new TextRun({ text: "TEACHER", bold: true, size: 21, color: "FFFFFF" })],
               alignment: AlignmentType.CENTER,
             })], 
             shading: { fill: "0A2E5C" },
@@ -374,7 +393,7 @@ const createSubjectTable = (subjects) => {
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "REMARKS", bold: true, size: 21, color: "FFFFFF" })], // Changed to 21
+              children: [new TextRun({ text: "REMARKS", bold: true, size: 21, color: "FFFFFF" })],
               alignment: AlignmentType.CENTER,
             })], 
             shading: { fill: "0A2E5C" },
@@ -389,11 +408,11 @@ const createSubjectTable = (subjects) => {
         const backgroundColor = index % 2 === 0 ? "F8F9FA" : "FFFFFF";
         
         return new TableRow({
-          height: { value: 380, rule: HeightRule.ATLEAST }, // Slightly increased height
+          height: { value: 380, rule: HeightRule.ATLEAST },
           children: [
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: subject.subject_name || subject.name, bold: true, size: 21 })], // Changed to 21
+                children: [new TextRun({ text: subject.subject_name || subject.name, bold: true, size: 21 })],
                 alignment: AlignmentType.LEFT,
               })], 
               shading: { fill: backgroundColor },
@@ -401,7 +420,7 @@ const createSubjectTable = (subjects) => {
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: String(score), bold: true, size: 21 })], // Changed to 21
+                children: [new TextRun({ text: String(score), bold: true, size: 21 })],
                 alignment: AlignmentType.CENTER,
               })], 
               shading: { fill: backgroundColor },
@@ -409,7 +428,7 @@ const createSubjectTable = (subjects) => {
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: grade, bold: true, size: 21, color: getGradeColor(grade) })], // Changed to 21
+                children: [new TextRun({ text: grade, bold: true, size: 21, color: getGradeColor(grade) })],
                 alignment: AlignmentType.CENTER,
               })], 
               shading: { fill: backgroundColor },
@@ -417,7 +436,7 @@ const createSubjectTable = (subjects) => {
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: teacher, size: 21 })], // Changed to 21
+                children: [new TextRun({ text: teacher, size: 21 })],
                 alignment: AlignmentType.CENTER,
               })], 
               shading: { fill: backgroundColor },
@@ -425,7 +444,7 @@ const createSubjectTable = (subjects) => {
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: subject.remarks || getGradeRemarks(grade), size: 21 })], // Changed to 21
+                children: [new TextRun({ text: subject.remarks || getGradeRemarks(grade), size: 21 })],
                 alignment: AlignmentType.CENTER,
               })], 
               shading: { fill: backgroundColor },
@@ -436,7 +455,11 @@ const createSubjectTable = (subjects) => {
       }),
     ],
   });
-};export const exportIndividualResultToWord = async (student, subjects = [], comments = {}, imageBase64 = null, totalStudents = 0) => {
+};
+
+// ====== WORD EXPORT MAIN FUNCTION ======
+
+export const exportIndividualResultToWord = async (student, subjects = [], comments = {}, imageBase64 = null, totalStudents = 0) => {
   try {
     // Inject teacher names if missing
     const enrichedSubjects = subjects.map(subj => ({
@@ -519,9 +542,8 @@ const createSubjectTable = (subjects) => {
                     createInfoRow("Total Marks:", Math.round(totalMarks).toString()),
                     createInfoRow("Percentage:", `${percentage}%`),
                     createInfoRow("Overall Grade:", student.overall_grade || calculateTotalGrade(totalMarks)),
-                    createInfoRow("Class Rank:", student.class_rank && totalStudents > 0 ? `${student.class_rank}/${totalStudents}` : 'N/A'), // Changed from #1 to 1/64
+                    createInfoRow("Class Rank:", student.class_rank && totalStudents > 0 ? `${student.class_rank}/${totalStudents}` : 'N/A'),
                     createInfoRow("Stream Rank:", student.stream_rank ? `${student.stream_rank}` : 'N/A'),
-                    // REMOVED: Overall Position line
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
