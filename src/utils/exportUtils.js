@@ -353,55 +353,50 @@ const getGradeColor = (grade) => {
 const createSubjectTable = (subjects) => {
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
-    columnWidths: [2700, 1300, 1300, 2200, 2200], // Average widths
+    columnWidths: [2500, 1000, 1000, 1800, 1800], // More compact columns
     rows: [
       new TableRow({
-        height: { value: 600, rule: HeightRule.ATLEAST }, // Reduced from 1000 to 600
+        height: { value: 400, rule: HeightRule.ATLEAST }, // Much shorter header
         children: [
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "SUBJECT", bold: true, size: 20, color: "FFFFFF" })], // Reduced from 24 to 20
+              children: [new TextRun({ text: "SUBJECT", bold: true, size: 16, color: "FFFFFF" })], 
               alignment: AlignmentType.CENTER,
-              spacing: { line: 280 } // Reduced from 400 to 280
             })], 
             shading: { fill: "0A2E5C" },
-            margins: { top: 180, bottom: 180, left: 120, right: 120 } // Reduced margins
+            margins: { top: 80, bottom: 80, left: 60, right: 60 } // Minimal margins
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "SCORE", bold: true, size: 20, color: "FFFFFF" })], 
+              children: [new TextRun({ text: "SCORE", bold: true, size: 16, color: "FFFFFF" })], 
               alignment: AlignmentType.CENTER,
-              spacing: { line: 280 }
             })], 
             shading: { fill: "0A2E5C" },
-            margins: { top: 180, bottom: 180, left: 120, right: 120 }
+            margins: { top: 80, bottom: 80, left: 60, right: 60 }
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "GRADE", bold: true, size: 20, color: "FFFFFF" })], 
+              children: [new TextRun({ text: "GRADE", bold: true, size: 16, color: "FFFFFF" })], 
               alignment: AlignmentType.CENTER,
-              spacing: { line: 280 }
             })], 
             shading: { fill: "0A2E5C" },
-            margins: { top: 180, bottom: 180, left: 120, right: 120 }
+            margins: { top: 80, bottom: 80, left: 60, right: 60 }
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "TEACHER", bold: true, size: 20, color: "FFFFFF" })], 
+              children: [new TextRun({ text: "TEACHER", bold: true, size: 16, color: "FFFFFF" })], 
               alignment: AlignmentType.CENTER,
-              spacing: { line: 280 }
             })], 
             shading: { fill: "0A2E5C" },
-            margins: { top: 180, bottom: 180, left: 120, right: 120 }
+            margins: { top: 80, bottom: 80, left: 60, right: 60 }
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "REMARKS", bold: true, size: 20, color: "FFFFFF" })], 
+              children: [new TextRun({ text: "REMARKS", bold: true, size: 16, color: "FFFFFF" })], 
               alignment: AlignmentType.CENTER,
-              spacing: { line: 280 }
             })], 
             shading: { fill: "0A2E5C" },
-            margins: { top: 180, bottom: 180, left: 120, right: 120 }
+            margins: { top: 80, bottom: 80, left: 60, right: 60 }
           }),
         ],
       }),
@@ -412,52 +407,47 @@ const createSubjectTable = (subjects) => {
         const backgroundColor = index % 2 === 0 ? "F8F9FA" : "FFFFFF";
         
         return new TableRow({
-          height: { value: 450, rule: HeightRule.ATLEAST }, // Reduced from 800 to 450
+          height: { value: 320, rule: HeightRule.ATLEAST }, // Much shorter data rows
           children: [
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: subject.subject_name || subject.name, bold: true, size: 17 })], // Reduced from 20 to 17
+                children: [new TextRun({ text: subject.subject_name || subject.name, bold: true, size: 14 })], 
                 alignment: AlignmentType.LEFT,
-                spacing: { line: 240 } // Reduced from 350 to 240
               })], 
               shading: { fill: backgroundColor },
-              margins: { top: 120, bottom: 120, left: 100, right: 100 } // Reduced margins
+              margins: { top: 60, bottom: 60, left: 50, right: 50 }
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: String(score), bold: true, size: 17 })], 
+                children: [new TextRun({ text: String(score), bold: true, size: 14 })], 
                 alignment: AlignmentType.CENTER,
-                spacing: { line: 240 }
               })], 
               shading: { fill: backgroundColor },
-              margins: { top: 120, bottom: 120, left: 100, right: 100 }
+              margins: { top: 60, bottom: 60, left: 50, right: 50 }
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: grade, bold: true, size: 17, color: getGradeColor(grade) })], 
+                children: [new TextRun({ text: grade, bold: true, size: 14, color: getGradeColor(grade) })], 
                 alignment: AlignmentType.CENTER,
-                spacing: { line: 240 }
               })], 
               shading: { fill: backgroundColor },
-              margins: { top: 120, bottom: 120, left: 100, right: 100 }
+              margins: { top: 60, bottom: 60, left: 50, right: 50 }
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: teacher, size: 16 })], // Kept at 16
+                children: [new TextRun({ text: teacher, size: 13 })], 
                 alignment: AlignmentType.CENTER,
-                spacing: { line: 240 }
               })], 
               shading: { fill: backgroundColor },
-              margins: { top: 120, bottom: 120, left: 100, right: 100 }
+              margins: { top: 60, bottom: 60, left: 50, right: 50 }
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: subject.remarks || getGradeRemarks(grade), size: 16 })], // Kept at 16
+                children: [new TextRun({ text: subject.remarks || getGradeRemarks(grade), size: 12 })], // Smaller for long text
                 alignment: AlignmentType.CENTER,
-                spacing: { line: 240 }
               })], 
               shading: { fill: backgroundColor },
-              margins: { top: 120, bottom: 120, left: 100, right: 100 }
+              margins: { top: 60, bottom: 60, left: 50, right: 50 }
             }),
           ],
         });
