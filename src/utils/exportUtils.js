@@ -455,7 +455,6 @@ const createSubjectTable = (subjects) => {
     ],
   });
 };
-
 export const exportIndividualResultToWord = async (student, subjects = [], comments = {}, imageBase64 = null, totalStudents = 0) => {
   try {
     // Inject teacher names if missing
@@ -474,11 +473,6 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
 
     const totalMarks = student.total_score || enrichedSubjects.reduce((sum, s) => sum + (parseFloat(s.score) || 0), 0);
     const percentage = ((totalMarks / 1100) * 100).toFixed(1);
-    
-    // Calculate rank out of total students
-    const rankOutOfTotal = student.class_rank && totalStudents > 0 
-      ? `Rank ${student.class_rank} out of ${totalStudents} students`
-      : 'Rank information not available';
 
     const doc = new Document({
       sections: [{
@@ -641,7 +635,6 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
     throw new Error('Failed to generate Word document: ' + error.message);
   }
 };
-
 
 
 export const exportIndividualResultAsHTML = async (student, subjects = [], comments = {}, logoUrl = null) => {
