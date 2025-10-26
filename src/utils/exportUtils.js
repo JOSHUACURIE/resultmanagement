@@ -424,9 +424,7 @@ const createSubjectTable = (subjects) => {
       }),
     ],
   });
-};
-
-export const exportIndividualResultToWord = async (student, subjects = [], comments = {}, imageBase64 = null, totalStudents = 0) => {
+};export const exportIndividualResultToWord = async (student, subjects = [], comments = {}, imageBase64 = null, totalStudents = 0) => {
   try {
     // Inject teacher names if missing
     const enrichedSubjects = subjects.map(subj => ({
@@ -444,11 +442,6 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
 
     const totalMarks = student.total_score || enrichedSubjects.reduce((sum, s) => sum + (parseFloat(s.score) || 0), 0);
     const percentage = ((totalMarks / 1100) * 100).toFixed(1);
-    
-    // Calculate rank out of total students
-    const rankOutOfTotal = student.class_rank && totalStudents > 0 
-      ? `Rank ${student.class_rank} out of ${totalStudents} students`
-      : 'Rank information not available';
 
     const doc = new Document({
       sections: [{
@@ -462,16 +455,16 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
               children: [
                 new TableCell({
                   children: imageRun ? [new Paragraph({ children: [imageRun], alignment: AlignmentType.CENTER })] : [
-                    new Paragraph({ children: [new TextRun({ text: "[LOGO]", size: 21 })], alignment: AlignmentType.CENTER }) // Changed to 21
+                    new Paragraph({ children: [new TextRun({ text: "[LOGO]", size: 21 })], alignment: AlignmentType.CENTER })
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
                 new TableCell({
                   children: [
-                    new Paragraph({ children: [new TextRun({ text: "ST PETERS MAWENI GIRLS SECONDARY SCHOOL", bold: true, size: 21, allCaps: true })], alignment: AlignmentType.CENTER }), // Changed to 21
-                    new Paragraph({ children: [new TextRun({ text: "P.O. BOX 941-40400 SUNA MIGORI", size: 21 })], alignment: AlignmentType.CENTER }), // Changed to 21
-                    new Paragraph({ children: [new TextRun({ text: "Email: stpetersmaweni@gmail.com", size: 21 })], alignment: AlignmentType.CENTER }), // Changed to 21
-                    new Paragraph({ children: [new TextRun({ text: "KNOWLEDGE IS POWER", italics: true, size: 21 })], alignment: AlignmentType.CENTER, spacing: { after: 100 } }), // Changed to 21
+                    new Paragraph({ children: [new TextRun({ text: "ST PETERS MAWENI GIRLS SECONDARY SCHOOL", bold: true, size: 21, allCaps: true })], alignment: AlignmentType.CENTER }),
+                    new Paragraph({ children: [new TextRun({ text: "P.O. BOX 941-40400 SUNA MIGORI", size: 21 })], alignment: AlignmentType.CENTER }),
+                    new Paragraph({ children: [new TextRun({ text: "Email: stpetersmaweni@gmail.com", size: 21 })], alignment: AlignmentType.CENTER }),
+                    new Paragraph({ children: [new TextRun({ text: "KNOWLEDGE IS POWER", italics: true, size: 21 })], alignment: AlignmentType.CENTER, spacing: { after: 100 } }),
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
@@ -481,14 +474,14 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
 
           // Separator
           new Paragraph({
-            children: [new TextRun({ text: "―".repeat(60), size: 21, color: "0A2E5C" })], // Changed to 21
+            children: [new TextRun({ text: "―".repeat(60), size: 21, color: "0A2E5C" })],
             alignment: AlignmentType.CENTER,
             spacing: { before: 100, after: 200 },
           }),
 
           // Report Title
           new Paragraph({
-            children: [new TextRun({ text: "INDIVIDUAL ACADEMIC PERFORMANCE REPORT", bold: true, size: 21, allCaps: true, color: "0A2E5C" })], // Changed to 21
+            children: [new TextRun({ text: "INDIVIDUAL ACADEMIC PERFORMANCE REPORT", bold: true, size: 21, allCaps: true, color: "0A2E5C" })],
             alignment: AlignmentType.CENTER,
             spacing: { after: 300 },
           }),
@@ -501,7 +494,7 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
               children: [
                 new TableCell({
                   children: [
-                    new Paragraph({ children: [new TextRun({ text: "STUDENT INFORMATION", bold: true, size: 21, color: "0A2E5C" })], spacing: { after: 150 } }), // Changed to 21
+                    new Paragraph({ children: [new TextRun({ text: "STUDENT INFORMATION", bold: true, size: 21, color: "0A2E5C" })], spacing: { after: 150 } }),
                     createInfoRow("Full Name:", student.fullname || student.name),
                     createInfoRow("Admission No:", student.admission_number || student.admission_no),
                     createInfoRow("Class:", `${student.class_name || student.form} ${student.stream_name || student.stream || ''}`),
@@ -510,20 +503,13 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
                 }),
                 new TableCell({
                   children: [
-                    new Paragraph({ children: [new TextRun({ text: "ACADEMIC SUMMARY", bold: true, size: 21, color: "0A2E5C" })], spacing: { after: 150 } }), // Changed to 21
+                    new Paragraph({ children: [new TextRun({ text: "ACADEMIC SUMMARY", bold: true, size: 21, color: "0A2E5C" })], spacing: { after: 150 } }),
                     createInfoRow("Total Marks:", Math.round(totalMarks).toString()),
                     createInfoRow("Percentage:", `${percentage}%`),
                     createInfoRow("Overall Grade:", student.overall_grade || calculateTotalGrade(totalMarks)),
-                    createInfoRow("Class Rank:", student.class_rank ? `#${student.class_rank}` : 'N/A'),
-                    createInfoRow("Stream Rank:", student.stream_rank ? `#${student.stream_rank}` : 'N/A'),
-                    // Rank out of total students
-                    new Paragraph({
-                      children: [
-                        new TextRun({ text: "Overall Position: ", bold: true, size: 21 }), // Changed to 21
-                        new TextRun({ text: rankOutOfTotal, size: 21, color: "0A2E5C", bold: true }), // Changed to 21
-                      ],
-                      spacing: { after: 100 },
-                    }),
+                    createInfoRow("Class Rank:", student.class_rank && totalStudents > 0 ? `${student.class_rank}/${totalStudents}` : 'N/A'), // Changed from #1 to 1/64
+                    createInfoRow("Stream Rank:", student.stream_rank ? `${student.stream_rank}` : 'N/A'),
+                    // REMOVED: Overall Position line
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
@@ -535,7 +521,7 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
 
           // Subject Table
           new Paragraph({
-            children: [new TextRun({ text: "SUBJECT PERFORMANCE ANALYSIS", bold: true, size: 21, color: "0A2E5C" })], // Changed to 21
+            children: [new TextRun({ text: "SUBJECT PERFORMANCE ANALYSIS", bold: true, size: 21, color: "0A2E5C" })],
             spacing: { before: 100, after: 200 },
           }),
           enrichedSubjects.length > 0 ? createSubjectTable(enrichedSubjects) :
@@ -545,29 +531,29 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
 
           // Comments
           new Paragraph({
-            children: [new TextRun({ text: "OFFICIAL COMMENTS", bold: true, size: 21, color: "0A2E5C" })], // Changed to 21
+            children: [new TextRun({ text: "OFFICIAL COMMENTS", bold: true, size: 21, color: "0A2E5C" })],
             spacing: { before: 100, after: 200 },
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "Principal's Comment: ", bold: true, size: 21 }), // Changed to 21
+              new TextRun({ text: "Principal's Comment: ", bold: true, size: 21 }),
               new TextRun({ text: comments.principal || ".........................." }),
             ],
             spacing: { after: 150 },
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "Class Teacher's Comment: ", bold: true, size: 21 }), // Changed to 21
-              new TextRun({ text: comments.class_teacher || "..........................", size: 21 }), // Changed to 21
+              new TextRun({ text: "Class Teacher's Comment: ", bold: true, size: 21 }),
+              new TextRun({ text: comments.class_teacher || "..........................", size: 21 }),
             ],
             spacing: { after: 150 },
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "Fee Balance: ", bold: true, size: 21 }), // Changed to 21
+              new TextRun({ text: "Fee Balance: ", bold: true, size: 21 }),
               new TextRun({
                 text: "KSh " + (student.fee_balance || ".............."),
-                size: 21, // Changed to 21
+                size: 21,
                 color: student.fee_balance > 0 ? "EF5350" : "2E8B57",
               }),
             ],
@@ -582,15 +568,15 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
               children: [
                 new TableCell({
                   children: [
-                    new Paragraph({ children: [new TextRun({ text: "_________________________", size: 21 })], alignment: AlignmentType.CENTER }), // Changed to 21
-                    new Paragraph({ children: [new TextRun({ text: "Principal's Signature", bold: true, size: 21 })], alignment: AlignmentType.CENTER, spacing: { after: 150 } }), // Changed to 21
+                    new Paragraph({ children: [new TextRun({ text: "_________________________", size: 21 })], alignment: AlignmentType.CENTER }),
+                    new Paragraph({ children: [new TextRun({ text: "Principal's Signature", bold: true, size: 21 })], alignment: AlignmentType.CENTER, spacing: { after: 150 } }),
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
                 new TableCell({
                   children: [
-                    new Paragraph({ children: [new TextRun({ text: "_________________________", size: 21 })], alignment: AlignmentType.CENTER }), // Changed to 21
-                    new Paragraph({ children: [new TextRun({ text: "Class Teacher's Signature", bold: true, size: 21 })], alignment: AlignmentType.CENTER, spacing: { after: 150 } }), // Changed to 21
+                    new Paragraph({ children: [new TextRun({ text: "_________________________", size: 21 })], alignment: AlignmentType.CENTER }),
+                    new Paragraph({ children: [new TextRun({ text: "Class Teacher's Signature", bold: true, size: 21 })], alignment: AlignmentType.CENTER, spacing: { after: 150 } }),
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
@@ -600,12 +586,12 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
 
           // Footer
           new Paragraph({
-            children: [new TextRun({ text: "Generated by LeraTech Academic System", size: 21, color: "666666" })], // Changed to 21
+            children: [new TextRun({ text: "Generated by LeraTech Academic System", size: 21, color: "666666" })],
             alignment: AlignmentType.RIGHT,
             spacing: { before: 300 },
           }),
           new Paragraph({
-            children: [new TextRun({ text: `Report generated on: ${new Date().toLocaleDateString()}`, size: 21, color: "999999" })], // Changed to 21
+            children: [new TextRun({ text: `Report generated on: ${new Date().toLocaleDateString()}`, size: 21, color: "999999" })],
             alignment: AlignmentType.RIGHT,
           }),
         ],
@@ -618,17 +604,6 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
     console.error('Error generating Word document:', error);
     throw new Error('Failed to generate Word document: ' + error.message);
   }
-};
-
-// Update the createInfoRow function to use size 21
-const createInfoRow = (label, value) => {
-  return new Paragraph({
-    children: [
-      new TextRun({ text: label, bold: true, size: 21 }), // Changed to 21
-      new TextRun({ text: "\t" + (value || 'N/A'), size: 21 }), // Changed to 21
-    ],
-    spacing: { after: 80 },
-  });
 };
 // ====== HTML EXPORT (Modern UI) ======
 
