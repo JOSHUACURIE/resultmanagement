@@ -320,6 +320,18 @@ export const loadImageAsBase64 = async (imageUrl) => {
     return null;
   }
 };
+// ====== WORD EXPORT HELPER FUNCTIONS ======
+
+const createInfoRow = (label, value) => {
+  return new Paragraph({
+    children: [
+      new TextRun({ text: label, bold: true, size: 21 }),
+      new TextRun({ text: "\t" + (value || 'N/A'), size: 21 }),
+    ],
+    spacing: { after: 80 },
+  });
+};
+
 const createSubjectTable = (subjects) => {
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
