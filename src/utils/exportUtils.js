@@ -349,7 +349,8 @@ const getGradeColor = (grade) => {
     'E': '990000'    // Dark Red
   };
   return colors[grade] || '000000';
-};const createSubjectTable = (subjects) => {
+};
+const createSubjectTable = (subjects) => {
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
     columnWidths: [2400, 900, 900, 1700, 1700], // Slightly more compact columns
@@ -545,14 +546,6 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
                     createInfoRow("Overall Grade:", student.overall_grade || calculateTotalGrade(totalMarks)),
                     createInfoRow("Class Rank:", student.class_rank ? `#${student.class_rank}` : 'N/A'),
                     createInfoRow("Stream Rank:", student.stream_rank ? `#${student.stream_rank}` : 'N/A'),
-                    // Rank out of total students - REDUCED
-                    new Paragraph({
-                      children: [
-                        new TextRun({ text: "Overall Position: ", bold: true, size: 16 }), // Reduced from 18 to 16
-                        new TextRun({ text: rankOutOfTotal, size: 16, color: "0A2E5C", bold: true }), // Reduced from 18 to 16
-                      ],
-                      spacing: { after: 100 }, // Reduced spacing
-                    }),
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
