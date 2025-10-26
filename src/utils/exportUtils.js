@@ -349,10 +349,12 @@ const getGradeColor = (grade) => {
     'E': '990000'    // Dark Red
   };
   return colors[grade] || '000000';
-};const createSubjectTable = (subjects) => {
+};
+
+const createSubjectTable = (subjects) => {
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
-    columnWidths: [2800, 1400, 1400, 2200, 2200], // Increased column widths
+    columnWidths: [2600, 1300, 1300, 2000, 2000], // Increased column widths
     rows: [
       new TableRow({
         height: { value: 800, rule: HeightRule.ATLEAST }, // Increased header row height
