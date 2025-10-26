@@ -10,6 +10,7 @@ import {
   AlignmentType,
   WidthType,
   ImageRun,
+  HeightRule,
   BorderStyle
 } from 'docx';
 import { saveAs } from 'file-saver';
