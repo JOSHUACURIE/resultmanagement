@@ -322,14 +322,13 @@ export const loadImageAsBase64 = async (imageUrl) => {
 };
 
 // ====== WORD EXPORT (with Navy + Teal) ======
-
 const createInfoRow = (label, value) => {
   return new Paragraph({
     children: [
-      new TextRun({ text: label, bold: true, size: 20 }), // Increased from 16 to 20
-      new TextRun({ text: "\t" + (value || 'N/A'), size: 20 }), // Increased from 16 to 20
+      new TextRun({ text: label, bold: true, size: 16 }), // Reduced from 20 to 16
+      new TextRun({ text: "\t" + (value || 'N/A'), size: 16 }), // Reduced from 20 to 16
     ],
-    spacing: { after: 120 },
+    spacing: { after: 80 }, // Reduced from 120 to 80
   });
 };
 
@@ -353,50 +352,50 @@ const getGradeColor = (grade) => {
 const createSubjectTable = (subjects) => {
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
-    columnWidths: [2500, 1000, 1000, 1800, 1800], // More compact columns
+    columnWidths: [2400, 900, 900, 1700, 1700], // Slightly more compact columns
     rows: [
       new TableRow({
-        height: { value: 400, rule: HeightRule.ATLEAST }, // Much shorter header
+        height: { value: 380, rule: HeightRule.ATLEAST },
         children: [
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "SUBJECT", bold: true, size: 16, color: "FFFFFF" })], 
+              children: [new TextRun({ text: "SUBJECT", bold: true, size: 18, color: "FFFFFF" })], // Increased from 16 to 18
               alignment: AlignmentType.CENTER,
             })], 
             shading: { fill: "0A2E5C" },
-            margins: { top: 80, bottom: 80, left: 60, right: 60 } // Minimal margins
+            margins: { top: 60, bottom: 60, left: 40, right: 40 } // Reduced margins
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "SCORE", bold: true, size: 16, color: "FFFFFF" })], 
+              children: [new TextRun({ text: "SCORE", bold: true, size: 18, color: "FFFFFF" })], // Increased from 16 to 18
               alignment: AlignmentType.CENTER,
             })], 
             shading: { fill: "0A2E5C" },
-            margins: { top: 80, bottom: 80, left: 60, right: 60 }
+            margins: { top: 60, bottom: 60, left: 40, right: 40 }
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "GRADE", bold: true, size: 16, color: "FFFFFF" })], 
+              children: [new TextRun({ text: "GRADE", bold: true, size: 18, color: "FFFFFF" })], // Increased from 16 to 18
               alignment: AlignmentType.CENTER,
             })], 
             shading: { fill: "0A2E5C" },
-            margins: { top: 80, bottom: 80, left: 60, right: 60 }
+            margins: { top: 60, bottom: 60, left: 40, right: 40 }
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "TEACHER", bold: true, size: 16, color: "FFFFFF" })], 
+              children: [new TextRun({ text: "TEACHER", bold: true, size: 18, color: "FFFFFF" })], // Increased from 16 to 18
               alignment: AlignmentType.CENTER,
             })], 
             shading: { fill: "0A2E5C" },
-            margins: { top: 80, bottom: 80, left: 60, right: 60 }
+            margins: { top: 60, bottom: 60, left: 40, right: 40 }
           }),
           new TableCell({ 
             children: [new Paragraph({ 
-              children: [new TextRun({ text: "REMARKS", bold: true, size: 16, color: "FFFFFF" })], 
+              children: [new TextRun({ text: "REMARKS", bold: true, size: 18, color: "FFFFFF" })], // Increased from 16 to 18
               alignment: AlignmentType.CENTER,
             })], 
             shading: { fill: "0A2E5C" },
-            margins: { top: 80, bottom: 80, left: 60, right: 60 }
+            margins: { top: 60, bottom: 60, left: 40, right: 40 }
           }),
         ],
       }),
@@ -407,47 +406,47 @@ const createSubjectTable = (subjects) => {
         const backgroundColor = index % 2 === 0 ? "F8F9FA" : "FFFFFF";
         
         return new TableRow({
-          height: { value: 320, rule: HeightRule.ATLEAST }, // Much shorter data rows
+          height: { value: 300, rule: HeightRule.ATLEAST }, // Slightly reduced
           children: [
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: subject.subject_name || subject.name, bold: true, size: 14 })], 
+                children: [new TextRun({ text: subject.subject_name || subject.name, bold: true, size: 16 })], // Increased from 14 to 16
                 alignment: AlignmentType.LEFT,
               })], 
               shading: { fill: backgroundColor },
-              margins: { top: 60, bottom: 60, left: 50, right: 50 }
+              margins: { top: 50, bottom: 50, left: 40, right: 40 } // Reduced margins
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: String(score), bold: true, size: 14 })], 
+                children: [new TextRun({ text: String(score), bold: true, size: 16 })], // Increased from 14 to 16
                 alignment: AlignmentType.CENTER,
               })], 
               shading: { fill: backgroundColor },
-              margins: { top: 60, bottom: 60, left: 50, right: 50 }
+              margins: { top: 50, bottom: 50, left: 40, right: 40 }
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: grade, bold: true, size: 14, color: getGradeColor(grade) })], 
+                children: [new TextRun({ text: grade, bold: true, size: 16, color: getGradeColor(grade) })], // Increased from 14 to 16
                 alignment: AlignmentType.CENTER,
               })], 
               shading: { fill: backgroundColor },
-              margins: { top: 60, bottom: 60, left: 50, right: 50 }
+              margins: { top: 50, bottom: 50, left: 40, right: 40 }
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: teacher, size: 13 })], 
+                children: [new TextRun({ text: teacher, size: 14 })], // Increased from 13 to 14
                 alignment: AlignmentType.CENTER,
               })], 
               shading: { fill: backgroundColor },
-              margins: { top: 60, bottom: 60, left: 50, right: 50 }
+              margins: { top: 50, bottom: 50, left: 40, right: 40 }
             }),
             new TableCell({ 
               children: [new Paragraph({ 
-                children: [new TextRun({ text: subject.remarks || getGradeRemarks(grade), size: 12 })], // Smaller for long text
+                children: [new TextRun({ text: subject.remarks || getGradeRemarks(grade), size: 13 })], // Increased from 12 to 13
                 alignment: AlignmentType.CENTER,
               })], 
               shading: { fill: backgroundColor },
-              margins: { top: 60, bottom: 60, left: 50, right: 50 }
+              margins: { top: 50, bottom: 50, left: 40, right: 40 }
             }),
           ],
         });
@@ -455,6 +454,7 @@ const createSubjectTable = (subjects) => {
     ],
   });
 };
+
 export const exportIndividualResultToWord = async (student, subjects = [], comments = {}, imageBase64 = null, totalStudents = 0) => {
   try {
     // Inject teacher names if missing
@@ -467,7 +467,7 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
     if (imageBase64) {
       imageRun = new ImageRun({
         data: Uint8Array.from(atob(imageBase64), c => c.charCodeAt(0)),
-        transformation: { width: 80, height: 80 },
+        transformation: { width: 70, height: 70 }, // Reduced image size
       });
     }
 
@@ -483,24 +483,24 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
       sections: [{
         properties: {},
         children: [
-          // Header with Logo
+          // Header with Logo - REDUCED
           new Table({
             width: { size: 100, type: WidthType.PERCENTAGE },
-            columnWidths: [2000, 8000],
+            columnWidths: [1500, 8500], // Reduced logo column
             rows: [new TableRow({
               children: [
                 new TableCell({
                   children: imageRun ? [new Paragraph({ children: [imageRun], alignment: AlignmentType.CENTER })] : [
-                    new Paragraph({ children: [new TextRun({ text: "[LOGO]", size: 20 })], alignment: AlignmentType.CENTER })
+                    new Paragraph({ children: [new TextRun({ text: "[LOGO]", size: 16 })], alignment: AlignmentType.CENTER }) // Reduced font
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
                 new TableCell({
                   children: [
-                    new Paragraph({ children: [new TextRun({ text: "ST PETERS MAWENI GIRLS SECONDARY SCHOOL", bold: true, size: 26, allCaps: true })], alignment: AlignmentType.CENTER }),
-                    new Paragraph({ children: [new TextRun({ text: "P.O. BOX 941-40400 SUNA MIGORI", size: 22 })], alignment: AlignmentType.CENTER }),
-                    new Paragraph({ children: [new TextRun({ text: "Email: stpetersmaweni@gmail.com", size: 20 })], alignment: AlignmentType.CENTER }),
-                    new Paragraph({ children: [new TextRun({ text: "KNOWLEDGE IS POWER", italics: true, size: 20 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+                    new Paragraph({ children: [new TextRun({ text: "ST PETERS MAWENI GIRLS SECONDARY SCHOOL", bold: true, size: 20, allCaps: true })], alignment: AlignmentType.CENTER }), // Reduced from 26 to 20
+                    new Paragraph({ children: [new TextRun({ text: "P.O. BOX 941-40400 SUNA MIGORI", size: 16 })], alignment: AlignmentType.CENTER }), // Reduced from 22 to 16
+                    new Paragraph({ children: [new TextRun({ text: "Email: stpetersmaweni@gmail.com", size: 14 })], alignment: AlignmentType.CENTER }), // Reduced from 20 to 14
+                    new Paragraph({ children: [new TextRun({ text: "KNOWLEDGE IS POWER", italics: true, size: 14 })], alignment: AlignmentType.CENTER, spacing: { after: 100 } }), // Reduced spacing and font
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
@@ -508,21 +508,21 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
             })],
           }),
 
-          // Separator
+          // Separator - REDUCED
           new Paragraph({
-            children: [new TextRun({ text: "―".repeat(80), size: 20, color: "0A2E5C" })],
+            children: [new TextRun({ text: "―".repeat(60), size: 16, color: "0A2E5C" })], // Reduced size and length
             alignment: AlignmentType.CENTER,
-            spacing: { before: 200, after: 400 },
+            spacing: { before: 100, after: 200 }, // Reduced spacing
           }),
 
-          // Report Title
+          // Report Title - REDUCED
           new Paragraph({
-            children: [new TextRun({ text: "INDIVIDUAL ACADEMIC PERFORMANCE REPORT", bold: true, size: 28, allCaps: true, color: "0A2E5C" })],
+            children: [new TextRun({ text: "INDIVIDUAL ACADEMIC PERFORMANCE REPORT", bold: true, size: 22, allCaps: true, color: "0A2E5C" })], // Reduced from 28 to 22
             alignment: AlignmentType.CENTER,
-            spacing: { after: 600 },
+            spacing: { after: 300 }, // Reduced from 600 to 300
           }),
 
-          // Info Grid
+          // Info Grid - REDUCED
           new Table({
             width: { size: 100, type: WidthType.PERCENTAGE },
             columnWidths: [5000, 5000],
@@ -530,7 +530,7 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
               children: [
                 new TableCell({
                   children: [
-                    new Paragraph({ children: [new TextRun({ text: "STUDENT INFORMATION", bold: true, size: 22, color: "0A2E5C" })], spacing: { after: 200 } }),
+                    new Paragraph({ children: [new TextRun({ text: "STUDENT INFORMATION", bold: true, size: 18, color: "0A2E5C" })], spacing: { after: 150 } }), // Reduced font and spacing
                     createInfoRow("Full Name:", student.fullname || student.name),
                     createInfoRow("Admission No:", student.admission_number || student.admission_no),
                     createInfoRow("Class:", `${student.class_name || student.form} ${student.stream_name || student.stream || ''}`),
@@ -539,19 +539,19 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
                 }),
                 new TableCell({
                   children: [
-                    new Paragraph({ children: [new TextRun({ text: "ACADEMIC SUMMARY", bold: true, size: 22, color: "0A2E5C" })], spacing: { after: 200 } }),
+                    new Paragraph({ children: [new TextRun({ text: "ACADEMIC SUMMARY", bold: true, size: 18, color: "0A2E5C" })], spacing: { after: 150 } }), // Reduced font and spacing
                     createInfoRow("Total Marks:", Math.round(totalMarks).toString()),
                     createInfoRow("Percentage:", `${percentage}%`),
                     createInfoRow("Overall Grade:", student.overall_grade || calculateTotalGrade(totalMarks)),
                     createInfoRow("Class Rank:", student.class_rank ? `#${student.class_rank}` : 'N/A'),
                     createInfoRow("Stream Rank:", student.stream_rank ? `#${student.stream_rank}` : 'N/A'),
-                    // NEW: Rank out of total students
+                    // Rank out of total students - REDUCED
                     new Paragraph({
                       children: [
-                        new TextRun({ text: "Overall Position: ", bold: true, size: 18 }),
-                        new TextRun({ text: rankOutOfTotal, size: 18, color: "0A2E5C", bold: true }),
+                        new TextRun({ text: "Overall Position: ", bold: true, size: 16 }), // Reduced from 18 to 16
+                        new TextRun({ text: rankOutOfTotal, size: 16, color: "0A2E5C", bold: true }), // Reduced from 18 to 16
                       ],
-                      spacing: { after: 120 },
+                      spacing: { after: 100 }, // Reduced spacing
                     }),
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
@@ -560,50 +560,50 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
             })],
           }),
 
-          new Paragraph({ text: "", spacing: { after: 400 } }),
+          new Paragraph({ text: "", spacing: { after: 200 } }), // Reduced from 400 to 200
 
-          // Subject Table
+          // Subject Table - KEPT COMPACT BUT WITH INCREASED FONT
           new Paragraph({
-            children: [new TextRun({ text: "SUBJECT PERFORMANCE ANALYSIS", bold: true, size: 22, color: "0A2E5C" })],
-            spacing: { before: 200, after: 300 },
+            children: [new TextRun({ text: "SUBJECT PERFORMANCE ANALYSIS", bold: true, size: 18, color: "0A2E5C" })], // Reduced from 22 to 18
+            spacing: { before: 100, after: 200 }, // Reduced spacing
           }),
           enrichedSubjects.length > 0 ? createSubjectTable(enrichedSubjects) :
-            new Paragraph({ text: "No subject performance data available", alignment: AlignmentType.CENTER, spacing: { before: 200, after: 200 } }),
+            new Paragraph({ text: "No subject performance data available", alignment: AlignmentType.CENTER, spacing: { before: 100, after: 100 } }), // Reduced spacing
 
-          new Paragraph({ text: "", spacing: { after: 400 } }),
+          new Paragraph({ text: "", spacing: { after: 200 } }), // Reduced from 400 to 200
 
-          // Comments
+          // Comments - REDUCED
           new Paragraph({
-            children: [new TextRun({ text: "OFFICIAL COMMENTS", bold: true, size: 22, color: "0A2E5C" })],
-            spacing: { before: 200, after: 300 },
+            children: [new TextRun({ text: "OFFICIAL COMMENTS", bold: true, size: 18, color: "0A2E5C" })], // Reduced from 22 to 18
+            spacing: { before: 100, after: 200 }, // Reduced spacing
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "Principal's Comment: ", bold: true, size: 20 }),
+              new TextRun({ text: "Principal's Comment: ", bold: true, size: 16 }), // Reduced from 20 to 16
               new TextRun({ text: comments.principal || ".........................." }),
             ],
-            spacing: { after: 200 },
+            spacing: { after: 150 }, // Reduced spacing
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "Class Teacher's Comment: ", bold: true, size: 20 }),
-              new TextRun({ text: comments.class_teacher || "..........................", size: 20 }),
+              new TextRun({ text: "Class Teacher's Comment: ", bold: true, size: 16 }), // Reduced from 20 to 16
+              new TextRun({ text: comments.class_teacher || "..........................", size: 16 }), // Reduced from 20 to 16
             ],
-            spacing: { after: 200 },
+            spacing: { after: 150 }, // Reduced spacing
           }),
           new Paragraph({
             children: [
-              new TextRun({ text: "Fee Balance: ", bold: true, size: 20 }),
+              new TextRun({ text: "Fee Balance: ", bold: true, size: 16 }), // Reduced from 20 to 16
               new TextRun({
                 text: "KSh " + (student.fee_balance || ".............."),
-                size: 20,
+                size: 16, // Reduced from 20 to 16
                 color: student.fee_balance > 0 ? "EF5350" : "2E8B57",
               }),
             ],
-            spacing: { before: 400, after: 200 },
+            spacing: { before: 200, after: 150 }, // Reduced spacing
           }),
 
-          // Signatures
+          // Signatures - REDUCED
           new Table({
             width: { size: 100, type: WidthType.PERCENTAGE },
             columnWidths: [5000, 5000],
@@ -611,15 +611,15 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
               children: [
                 new TableCell({
                   children: [
-                    new Paragraph({ children: [new TextRun({ text: "_________________________", size: 18 })], alignment: AlignmentType.CENTER }),
-                    new Paragraph({ children: [new TextRun({ text: "Principal's Signature", bold: true, size: 18 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+                    new Paragraph({ children: [new TextRun({ text: "_________________________", size: 14 })], alignment: AlignmentType.CENTER }), // Reduced from 18 to 14
+                    new Paragraph({ children: [new TextRun({ text: "Principal's Signature", bold: true, size: 14 })], alignment: AlignmentType.CENTER, spacing: { after: 150 } }), // Reduced font and spacing
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
                 new TableCell({
                   children: [
-                    new Paragraph({ children: [new TextRun({ text: "_________________________", size: 18 })], alignment: AlignmentType.CENTER }),
-                    new Paragraph({ children: [new TextRun({ text: "Class Teacher's Signature", bold: true, size: 18 })], alignment: AlignmentType.CENTER, spacing: { after: 200 } }),
+                    new Paragraph({ children: [new TextRun({ text: "_________________________", size: 14 })], alignment: AlignmentType.CENTER }), // Reduced from 18 to 14
+                    new Paragraph({ children: [new TextRun({ text: "Class Teacher's Signature", bold: true, size: 14 })], alignment: AlignmentType.CENTER, spacing: { after: 150 } }), // Reduced font and spacing
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
@@ -627,14 +627,14 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
             })],
           }),
 
-          // Footer
+          // Footer - REDUCED
           new Paragraph({
-            children: [new TextRun({ text: "Generated by LeraTech Academic System", size: 16, color: "666666" })],
+            children: [new TextRun({ text: "Generated by LeraTech Academic System", size: 12, color: "666666" })], // Reduced from 16 to 12
             alignment: AlignmentType.RIGHT,
-            spacing: { before: 600 },
+            spacing: { before: 300 }, // Reduced from 600 to 300
           }),
           new Paragraph({
-            children: [new TextRun({ text: `Report generated on: ${new Date().toLocaleDateString()}`, size: 14, color: "999999" })],
+            children: [new TextRun({ text: `Report generated on: ${new Date().toLocaleDateString()}`, size: 10, color: "999999" })], // Reduced from 14 to 10
             alignment: AlignmentType.RIGHT,
           }),
         ],
