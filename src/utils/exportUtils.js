@@ -458,7 +458,6 @@ const createSubjectTable = (subjects) => {
 };
 
 // ====== WORD EXPORT MAIN FUNCTION ======
-
 export const exportIndividualResultToWord = async (student, subjects = [], comments = {}, imageBase64 = null, totalStudents = 0) => {
   try {
     // Inject teacher names if missing
@@ -542,8 +541,9 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
                     createInfoRow("Total Marks:", Math.round(totalMarks).toString()),
                     createInfoRow("Percentage:", `${percentage}%`),
                     createInfoRow("Overall Grade:", student.overall_grade || calculateTotalGrade(totalMarks)),
-                    createInfoRow("Class Rank:", student.class_rank && totalStudents > 0 ? `${student.class_rank}/${totalStudents}` : 'N/A'),
+                    createInfoRow("Class Rank:", student.class_rank && totalStudents > 0 ? `${student.class_rank}/${totalStudents}` : 'N/A'), // Changed from #1 to 1/64
                     createInfoRow("Stream Rank:", student.stream_rank ? `${student.stream_rank}` : 'N/A'),
+                    // REMOVED: Overall Position line
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
@@ -639,7 +639,6 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
     throw new Error('Failed to generate Word document: ' + error.message);
   }
 };
-// ====== HTML EXPORT (Modern UI) ======
 
 export const exportIndividualResultAsHTML = async (student, subjects = [], comments = {}, logoUrl = null) => {
   const enrichedSubjects = subjects.map(subj => ({
