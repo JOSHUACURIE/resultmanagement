@@ -20,11 +20,11 @@ const getAPIBaseURL = () => {
   if (isLocalhost) {
     return 'http://localhost:5000/api';
   } else if (isVercel) {
-    return 'https://result-7.onrender.com/api';
+    return 'https://result-6.onrender.com/api';
   }
   
   // Fallback
-  return 'https://result-7.onrender.com/api';
+  return 'https://result-6.onrender.com/api';
 };
 
 const API_BASE_URL = getAPIBaseURL();
