@@ -185,9 +185,7 @@ const AnalyzeResults = () => {
       setExportingGeneral(false);
     }
   };
-
-  // Export ALL individual results to Word documents with logo
-  const handleExportAllIndividualResults = async () => {
+const handleExportAllIndividualResults = async () => {  // ✅ Fixed indentation
   if (!filters.term_id || !filters.class_id) {
     setError('Please select term and class');
     return;
@@ -260,8 +258,8 @@ const AnalyzeResults = () => {
   }
 };
   // Export individual student result as Word
-  
-const handleExportIndividualWord = async (student) => {
+  // Export individual student result as Word
+const handleExportIndividualWord = async (student) => {  // ✅ Fixed indentation
   setExportingIndividual(true);
   try {
     const subjects = (student.subject_scores || []).map(subject => ({
@@ -291,10 +289,9 @@ const handleExportIndividualWord = async (student) => {
   } finally {
     setExportingIndividual(false);
   }
-};
-
-  // Export individual student result as HTML
- const handleExportIndividualHTML = async (student) => {
+}; // ✅ Fixed: Added proper closing
+// Export individual student result as HTML
+const handleExportIndividualHTML = async (student) => {  // ✅ Fixed indentation
   setExportingIndividual(true);
   try {
     const subjects = (student.subject_scores || []).map(subject => ({
@@ -322,7 +319,7 @@ const handleExportIndividualWord = async (student) => {
   } finally {
     setExportingIndividual(false);
   }
-};
+}; // ✅ Fixed: Added proper closing
   // Get default principal comment based on performance
   const getDefaultPrincipalComment = (student) => {
     const totalMarks = Math.round(student.total_score || 0);
