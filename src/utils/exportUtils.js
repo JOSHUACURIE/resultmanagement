@@ -474,6 +474,10 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
     const totalMarks = student.total_score || enrichedSubjects.reduce((sum, s) => sum + (parseFloat(s.score) || 0), 0);
     const percentage = ((totalMarks / 1100) * 100).toFixed(1);
 
+    // Format rank display with total students
+    const classRankDisplay = student.class_rank ? `#${student.class_rank} out of ${totalStudents}` : `N/A out of ${totalStudents}`;
+    const streamRankDisplay = student.stream_rank ? `#${student.stream_rank} out of ${totalStudents}` : `N/A out of ${totalStudents}`;
+
     const doc = new Document({
       sections: [{
         properties: {},
@@ -538,8 +542,8 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
                     createInfoRow("Total Marks:", Math.round(totalMarks).toString()),
                     createInfoRow("Percentage:", `${percentage}%`),
                     createInfoRow("Overall Grade:", student.overall_grade || calculateTotalGrade(totalMarks)),
-                    createInfoRow("Class Rank:", student.class_rank ? `#${student.class_rank}` : 'N/A'),
-                    createInfoRow("Stream Rank:", student.stream_rank ? `#${student.stream_rank}` : 'N/A'),
+                    createInfoRow("Class Rank:", classRankDisplay),
+                    createInfoRow("Stream Rank:", streamRankDisplay),
                   ],
                   borders: { top: { style: BorderStyle.NONE }, bottom: { style: BorderStyle.NONE }, left: { style: BorderStyle.NONE }, right: { style: BorderStyle.NONE } },
                 }),
@@ -635,7 +639,6 @@ export const exportIndividualResultToWord = async (student, subjects = [], comme
     throw new Error('Failed to generate Word document: ' + error.message);
   }
 };
-
 
 export const exportIndividualResultAsHTML = async (student, subjects = [], comments = {}, logoUrl = null) => {
   const enrichedSubjects = subjects.map(subj => ({
