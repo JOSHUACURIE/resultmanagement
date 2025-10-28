@@ -59,7 +59,7 @@ const Login = () => {
     }
 
     // Check for required fields
-    const requiredFields = ['user_id', 'email', 'role'];
+    const requiredFields = ['user_id', 'email'];
     const missingFields = requiredFields.filter(field => !userData[field]);
 
     if (missingFields.length > 0) {
@@ -94,18 +94,16 @@ const Login = () => {
     }
 
     try {
-      // Call login API
-      const response = await authApi.login({ 
+      // Call login API - it already returns { user, token }
+      const result = await authApi.login({ 
         email: email.toLowerCase().trim(), 
         password: password.trim() 
       });
 
-      console.log('Login API Response:', response); // Debug log
+      console.log('Login API Result:', result); // Debug log
 
-      // Handle different response structures
-      const responseData = response.data || response;
-      const userData = responseData.user || responseData;
-      const token = responseData.token;
+      // ✅ FIXED: Use the result directly as returned by authApi.login()
+      const { user: userData, token } = result;
 
       if (!userData || !token) {
         throw new Error('Invalid response from server: missing user data or token');
@@ -124,16 +122,18 @@ const Login = () => {
     } catch (err) {
       console.error('Login error:', err);
       
-      // Handle specific error cases
+      // ✅ FIXED: Create new error message instead of modifying error object
+      let errorMessage = 'Login failed. Please check your credentials and try again.';
+      
       if (err.response?.data?.message) {
-        setError(err.response.data.message);
-      } else if (err.message.includes('Network Error')) {
-        setError('Network error. Please check your connection and try again.');
-      } else if (err.message.includes('401')) {
-        setError('Invalid email or password. Please try again.');
-      } else {
-        setError(err.message || 'Login failed. Please check your credentials and try again.');
+        errorMessage = err.response.data.message;
+      } else if (err.message) {
+        errorMessage = err.message;
+      } else if (err.includes?.('Network Error')) {
+        errorMessage = 'Network error. Please check your connection and try again.';
       }
+      
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
