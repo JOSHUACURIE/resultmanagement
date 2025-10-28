@@ -89,7 +89,7 @@ const getTeacherForSubject = (subjectName) => {
   return DEFAULT_TEACHERS[subjectName.toUpperCase().trim()] || 'N/A';
 };
 
-// ====== EXCEL EXPORT ======
+
 
 const calculateSubjectMean = (students, subject) => {
   const scores = students.map(student => {
