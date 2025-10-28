@@ -188,139 +188,141 @@ const AnalyzeResults = () => {
 
   // Export ALL individual results to Word documents with logo
   const handleExportAllIndividualResults = async () => {
-    if (!filters.term_id || !filters.class_id) {
-      setError('Please select term and class');
-      return;
-    }
+  if (!filters.term_id || !filters.class_id) {
+    setError('Please select term and class');
+    return;
+  }
 
-    if (results.length === 0) {
-      setError('No results to export');
-      return;
-    }
+  if (results.length === 0) {
+    setError('No results to export');
+    return;
+  }
 
-    setExportingAllIndividual(true);
-    setExportProgress({ current: 0, total: results.length });
-    
-    try {
-      let successCount = 0;
-      let errorCount = 0;
+  setExportingAllIndividual(true);
+  setExportProgress({ current: 0, total: results.length });
+  
+  try {
+    let successCount = 0;
+    let errorCount = 0;
 
-      // Load logo image as base64 for Word documents
-      const logoUrl = '/logo.jpg';
-      const imageBase64 = await loadImageAsBase64(logoUrl);
+    // Load logo image as base64 for Word documents
+    const logoUrl = '/logo.jpg';
+    const imageBase64 = await loadImageAsBase64(logoUrl);
 
-      const processStudentsSequentially = async () => {
-        for (let i = 0; i < results.length; i++) {
-          const student = results[i];
-          try {
-            setExportProgress({ current: i + 1, total: results.length });
-            
-            const subjects = (student.subject_scores || []).map(subject => ({
-              subject_name: subject.subject_name,
-              score: subject.score,
-              grade: subject.grade || calculateGrade(subject.score),
-              remarks: subject.remarks || getGradeRemarks(subject.grade || calculateGrade(subject.score))
-            }));
-            
-            const comments = {
-              principal: student.principal_comment || getDefaultPrincipalComment(student),
-              class_teacher: student.class_teacher_comment || getDefaultClassTeacherComment(student)
-            };
+    const processStudentsSequentially = async () => {
+      for (let i = 0; i < results.length; i++) {
+        const student = results[i];
+        try {
+          setExportProgress({ current: i + 1, total: results.length });
+          
+          const subjects = (student.subject_scores || []).map(subject => ({
+            subject_name: subject.subject_name,
+            score: subject.score,
+            grade: subject.grade || calculateGrade(subject.score),
+            remarks: subject.remarks || getGradeRemarks(subject.grade || calculateGrade(subject.score))
+          }));
+          
+          const comments = {
+            principal: student.principal_comment || getDefaultPrincipalComment(student),
+            class_teacher: student.class_teacher_comment || getDefaultClassTeacherComment(student)
+          };
 
-            const blob = await exportIndividualResultToWord(student, subjects, comments, imageBase64);
-            const filename = generateFilename(filters, filterOptions, student);
-            
-            downloadBlob(blob, filename);
-            successCount++;
-            
-            if (i < results.length - 1) {
-              await new Promise(resolve => setTimeout(resolve, 300));
-            }
-          } catch (err) {
-            console.error(`Failed to export result for ${student.admission_number}:`, err);
-            errorCount++;
+          // UPDATED: Pass totalStudents parameter (results.length)
+          const blob = await exportIndividualResultToWord(student, subjects, comments, imageBase64, results.length);
+          const filename = generateFilename(filters, filterOptions, student);
+          
+          downloadBlob(blob, filename);
+          successCount++;
+          
+          if (i < results.length - 1) {
+            await new Promise(resolve => setTimeout(resolve, 300));
           }
+        } catch (err) {
+          console.error(`Failed to export result for ${student.admission_number}:`, err);
+          errorCount++;
         }
-      };
-
-      await processStudentsSequentially();
-
-      if (errorCount === 0) {
-        alert(`✅ Successfully downloaded ${successCount} individual student reports!`);
-      } else {
-        alert(`📊 Download completed with ${successCount} successful and ${errorCount} failed downloads.`);
       }
-    } catch (err) {
-      console.error('Bulk export failed:', err);
-      setError('Failed to export individual results: ' + err.message);
-    } finally {
-      setExportingAllIndividual(false);
-      setExportProgress({ current: 0, total: 0 });
-    }
-  };
+    };
 
+    await processStudentsSequentially();
+
+    if (errorCount === 0) {
+      alert(`✅ Successfully downloaded ${successCount} individual student reports!`);
+    } else {
+      alert(`📊 Download completed with ${successCount} successful and ${errorCount} failed downloads.`);
+    }
+  } catch (err) {
+    console.error('Bulk export failed:', err);
+    setError('Failed to export individual results: ' + err.message);
+  } finally {
+    setExportingAllIndividual(false);
+    setExportProgress({ current: 0, total: 0 });
+  }
+};
   // Export individual student result as Word
-  const handleExportIndividualWord = async (student) => {
-    setExportingIndividual(true);
-    try {
-      const subjects = (student.subject_scores || []).map(subject => ({
-        subject_name: subject.subject_name,
-        score: subject.score,
-        grade: subject.grade || calculateGrade(subject.score),
-        remarks: subject.remarks || getGradeRemarks(subject.grade || calculateGrade(subject.score))
-      }));
-      
-      const comments = {
-        principal: student.principal_comment || getDefaultPrincipalComment(student),
-        class_teacher: student.class_teacher_comment || getDefaultClassTeacherComment(student)
-      };
+  
+const handleExportIndividualWord = async (student) => {
+  setExportingIndividual(true);
+  try {
+    const subjects = (student.subject_scores || []).map(subject => ({
+      subject_name: subject.subject_name,
+      score: subject.score,
+      grade: subject.grade || calculateGrade(subject.score),
+      remarks: subject.remarks || getGradeRemarks(subject.grade || calculateGrade(subject.score))
+    }));
+    
+    const comments = {
+      principal: student.principal_comment || getDefaultPrincipalComment(student),
+      class_teacher: student.class_teacher_comment || getDefaultClassTeacherComment(student)
+    };
 
-      const logoUrl = '/logo.jpg';
-      const imageBase64 = await loadImageAsBase64(logoUrl);
+    const logoUrl = '/logo.jpg';
+    const imageBase64 = await loadImageAsBase64(logoUrl);
 
-      const blob = await exportIndividualResultToWord(student, subjects, comments, imageBase64);
-      const filename = generateFilename(filters, filterOptions, student);
-      
-      downloadBlob(blob, filename);
-      alert(`✅ Successfully downloaded Word report for ${student.fullname}!`);
-    } catch (err) {
-      console.error(`Failed to export Word for ${student.admission_number}:`, err);
-      setError('Failed to export Word report: ' + err.message);
-    } finally {
-      setExportingIndividual(false);
-    }
-  };
+    // UPDATED: Pass totalStudents parameter
+    const blob = await exportIndividualResultToWord(student, subjects, comments, imageBase64, results.length);
+    const filename = generateFilename(filters, filterOptions, student);
+    
+    downloadBlob(blob, filename);
+    alert(`✅ Successfully downloaded Word report for ${student.fullname}!`);
+  } catch (err) {
+    console.error(`Failed to export Word for ${student.admission_number}:`, err);
+    setError('Failed to export Word report: ' + err.message);
+  } finally {
+    setExportingIndividual(false);
+  }
+};
 
   // Export individual student result as HTML
-  const handleExportIndividualHTML = async (student) => {
-    setExportingIndividual(true);
-    try {
-      const subjects = (student.subject_scores || []).map(subject => ({
-        subject_name: subject.subject_name,
-        score: subject.score,
-        grade: subject.grade || calculateGrade(subject.score),
-        remarks: subject.remarks || getGradeRemarks(subject.grade || calculateGrade(subject.score))
-      }));
-      
-      const comments = {
-        principal: student.principal_comment || getDefaultPrincipalComment(student),
-        class_teacher: student.class_teacher_comment || getDefaultClassTeacherComment(student)
-      };
+ const handleExportIndividualHTML = async (student) => {
+  setExportingIndividual(true);
+  try {
+    const subjects = (student.subject_scores || []).map(subject => ({
+      subject_name: subject.subject_name,
+      score: subject.score,
+      grade: subject.grade || calculateGrade(subject.score),
+      remarks: subject.remarks || getGradeRemarks(subject.grade || calculateGrade(subject.score))
+    }));
+    
+    const comments = {
+      principal: student.principal_comment || getDefaultPrincipalComment(student),
+      class_teacher: student.class_teacher_comment || getDefaultClassTeacherComment(student)
+    };
 
-      const logoUrl = '/logo.jpg';
-      const blob = await exportIndividualResultAsHTML(student, subjects, comments, logoUrl);
-      const filename = `Academic_Report_${student.admission_number}_${(student.fullname || student.name).replace(/\s+/g, '_')}.html`;
-      
-      downloadBlob(blob, filename);
-      alert(`✅ Successfully downloaded HTML report for ${student.fullname}!`);
-    } catch (err) {
-      console.error(`Failed to export HTML for ${student.admission_number}:`, err);
-      setError('Failed to export HTML report: ' + err.message);
-    } finally {
-      setExportingIndividual(false);
-    }
-  };
-
+    const logoUrl = '/logo.jpg';
+    // UPDATED: Pass totalStudents parameter
+    const blob = await exportIndividualResultAsHTML(student, subjects, comments, logoUrl, results.length);
+    const filename = `Academic_Report_${student.admission_number}_${(student.fullname || student.name).replace(/\s+/g, '_')}.html`;
+    
+    downloadBlob(blob, filename);
+    alert(`✅ Successfully downloaded HTML report for ${student.fullname}!`);
+  } catch (err) {
+    console.error(`Failed to export HTML for ${student.admission_number}:`, err);
+    setError('Failed to export HTML report: ' + err.message);
+  } finally {
+    setExportingIndividual(false);
+  }
+};
   // Get default principal comment based on performance
   const getDefaultPrincipalComment = (student) => {
     const totalMarks = Math.round(student.total_score || 0);
@@ -906,30 +908,31 @@ const AnalyzeResults = () => {
         size="lg"
       >
         {selectedStudent && (
-          <div className="student-details-modal">
-            <div className="student-basic-info">
-              <div className="info-item">
-                <strong>Name:</strong> {selectedStudent.fullname}
-              </div>
-              <div className="info-item">
-                <strong>Admission No:</strong> {selectedStudent.admission_number}
-              </div>
-              <div className="info-item">
-                <strong>Total Marks:</strong> {Math.round(selectedStudent.total_score)}
-              </div>
-              <div className="info-item">
-                <strong>Average:</strong> {parseFloat(selectedStudent.average_score).toFixed(2)}
-              </div>
-              <div className="info-item">
-                <strong>Overall Grade:</strong>
-                <Badge variant={getGradeVariant(calculateTotalGrade(selectedStudent.total_score))}>
-                  {calculateTotalGrade(selectedStudent.total_score)}
-                </Badge>
-              </div>
-              <div className="info-item">
-                <strong>Class Rank:</strong> {selectedStudent.class_rank}
-              </div>
-            </div>
+         <div className="student-basic-info">
+  <div className="info-item">
+    <strong>Name:</strong> {selectedStudent.fullname}
+  </div>
+  <div className="info-item">
+    <strong>Admission No:</strong> {selectedStudent.admission_number}
+  </div>
+  <div className="info-item">
+    <strong>Total Marks:</strong> {Math.round(selectedStudent.total_score)}
+  </div>
+  <div className="info-item">
+    <strong>Average:</strong> {parseFloat(selectedStudent.average_score).toFixed(2)}
+  </div>
+  <div className="info-item">
+    <strong>Overall Grade:</strong>
+    <Badge variant={getGradeVariant(calculateTotalGrade(selectedStudent.total_score))}>
+      {calculateTotalGrade(selectedStudent.total_score)}
+    </Badge>
+  </div>
+  {/* UPDATED: Show rank with total students */}
+  <div className="info-item">
+    <strong>Class Rank:</strong> {selectedStudent.class_rank} out of {results.length}
+  </div>
+</div>
+            
 
             <div className="subject-scores-details">
               <h4>Subject Scores</h4>
